@@ -19,9 +19,12 @@ package com.bellszhu.elasticsearch.plugin;
 //import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 //import co.elastic.clients.elasticsearch.core.SearchRequest;
 
-import com.bellszhu.elasticsearch.plugin.search.collector.ExampleRescoreBuilder;
-import com.bellszhu.elasticsearch.plugin.search.sort.CustomSortBuilder;
+import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
+import com.bellszhu.elasticsearch.plugin.search.collector.*;
+import com.bellszhu.elasticsearch.plugin.search.sort.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner;
 import org.elasticsearch.action.ActionFuture;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
@@ -131,6 +134,11 @@ public class SearchSortPluginTest3 {
         doc.put("age", 2);
         list.add(doc);
 
+        Map<String, Object> doc2 = new HashMap<>();
+        doc2.put("id", 2);
+        doc2.put("name", "Tom2");
+        doc2.put("age", 2);
+        list.add(doc);
 
         BulkRequest bulkRequest = new BulkRequest();
 
@@ -143,12 +151,12 @@ public class SearchSortPluginTest3 {
 
         try {
             runner.client().bulk(bulkRequest).get();
-            runner.client()
-                    .admin()
-                    .indices()
-                    .prepareFlush()
-                    .setIndices(indexName)   // optional
-                    .get();
+//            runner.client()
+//                    .admin()
+//                    .indices()
+//                    .prepareFlush()
+//                    .setIndices(indexName)   // optional
+//                    .get();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -177,9 +185,9 @@ public class SearchSortPluginTest3 {
                     throw new RuntimeException(e);
                 }
                 // 1. 主查询（随便一个）
-                QueryBuilder mainQuery = QueryBuilders.matchAllQuery();
-
-                // 2. 你的自定义 rescore
+//                QueryBuilder mainQuery = QueryBuilders.matchAllQuery();
+                QueryBuilder mainQuery = QueryBuilders.termQuery("name", "Tom");
+                        // 2. 你的自定义 rescore
                 ExampleRescoreBuilder rescore = new ExampleRescoreBuilder(10, "age");
 
                 SearchSourceBuilder sourceBuilder = new SearchSourceBuilder()

@@ -1,4 +1,5 @@
-com/bellszhu/elasticsearch/plugin/SearchCollectorPluginTest.class
+com/bellszhu/elasticsearch/plugin/SearchSortPluginTest3.class
 com/bellszhu/elasticsearch/plugin/ActionPluginTest.class
 com/bellszhu/elasticsearch/plugin/SearchCollectorPluginTest2.class
 com/bellszhu/elasticsearch/plugin/DynamicSynonymPluginTest.class
+com/bellszhu/elasticsearch/plugin/SearchCollectorPluginTest.class

@@ -8,7 +8,7 @@
 
 package com.bellszhu.elasticsearch.plugin.search.collector;
 
-import com.bellszhu.elasticsearch.plugin.action.CustomCachePlugin;
+import com.bellszhu.elasticsearch.plugin.action.*;
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.IndexSearcher;
