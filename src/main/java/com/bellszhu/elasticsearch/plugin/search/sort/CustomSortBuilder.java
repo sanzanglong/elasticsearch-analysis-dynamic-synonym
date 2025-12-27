@@ -3,7 +3,7 @@ package com.bellszhu.elasticsearch.plugin.search.sort;
 import org.apache.lucene.index.LeafReaderContext;
 import org.apache.lucene.search.Scorable;
 import org.apache.lucene.search.SortField;
-import org.elasticsearch.TransportVersion;
+//import org.elasticsearch.TransportVersion;
 import org.elasticsearch.Version;
 import org.elasticsearch.common.io.stream.InputStreamStreamInput;
 import org.elasticsearch.common.io.stream.StreamInput;
@@ -142,9 +142,14 @@ public class CustomSortBuilder extends SortBuilder<CustomSortBuilder> {
         return NAME;
     }
 
+//    @Override
+//    public TransportVersion getMinimalSupportedVersion() {
+//        return Version.V_8_7_1.transportVersion;
+//    }
+
     @Override
-    public TransportVersion getMinimalSupportedVersion() {
-        return Version.V_8_7_1.transportVersion;
+    public Version getMinimalSupportedVersion() {
+        return Version.V_8_2_3;
     }
 
     @Override

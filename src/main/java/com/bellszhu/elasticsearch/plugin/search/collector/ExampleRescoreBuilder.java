@@ -14,7 +14,7 @@ import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.elasticsearch.TransportVersion;
+//import org.elasticsearch.TransportVersion;
 import org.elasticsearch.core.Nullable;
 import org.elasticsearch.index.mapper.MappedFieldType;
 import org.elasticsearch.xcontent.ParseField;
@@ -76,6 +76,7 @@ public class ExampleRescoreBuilder extends RescorerBuilder<ExampleRescoreBuilder
 
 
 
+
     @Override
     public RescorerBuilder<ExampleRescoreBuilder> rewrite(QueryRewriteContext ctx) throws IOException {
         return this;
@@ -101,10 +102,16 @@ public class ExampleRescoreBuilder extends RescorerBuilder<ExampleRescoreBuilder
         return PARSER.apply(parser, null);
     }
 
-    @Override
+//    @Override
+//    public RescoreContext innerBuildContext(int windowSize, SearchExecutionContext context) throws IOException {
+//        IndexFieldData<?> factorFieldData =
+//                this.factorField == null ? null : context.getForField(context.getFieldType(this.factorField), MappedFieldType.FielddataOperation.SEARCH);
+//        return new ExampleRescoreContext(windowSize, factor, factorFieldData);
+//    }
+
     public RescoreContext innerBuildContext(int windowSize, SearchExecutionContext context) throws IOException {
         IndexFieldData<?> factorFieldData =
-                this.factorField == null ? null : context.getForField(context.getFieldType(this.factorField), MappedFieldType.FielddataOperation.SEARCH);
+                this.factorField == null ? null : context.getForField(context.getFieldType(this.factorField));
         return new ExampleRescoreContext(windowSize, factor, factorFieldData);
     }
 
@@ -225,8 +232,13 @@ public class ExampleRescoreBuilder extends RescorerBuilder<ExampleRescoreBuilder
 //        return Version.V_EMPTY;
 //    }
 
-    @Override
-    public TransportVersion getMinimalSupportedVersion() {
-        return Version.V_8_7_1.transportVersion;
-    }
+//    @Override
+//    public TransportVersion getMinimalSupportedVersion() {
+//        return Version.V_8_7_1.transportVersion;
+//    }
+
+@Override
+public Version getMinimalSupportedVersion() {
+    return Version.V_8_2_3;
+}
 }

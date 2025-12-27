@@ -24,7 +24,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.TermQuery;
 import com.bellszhu.elasticsearch.plugin.search.collector.*;
 import com.bellszhu.elasticsearch.plugin.search.sort.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+//import org.apache.commons.lang3.StringUtils;
 import org.codelibs.elasticsearch.runner.ElasticsearchClusterRunner;
 import org.elasticsearch.action.ActionFuture;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
@@ -246,19 +246,19 @@ public class SearchSortPluginTest3 {
         Map<String, Object> doc = new HashMap<>();
         doc.put("id", 1);
         doc.put("name", "Tom1");
-        doc.put("age", 1);
+        doc.put("age", 0);
         list.add(doc);
 
         Map<String, Object> doc2 = new HashMap<>();
         doc2.put("id", 2);
         doc2.put("name", "Tom2");
-        doc2.put("age", 2);
+        doc2.put("age", 0);
         list.add(doc2);
 
         Map<String, Object> doc3 = new HashMap<>();
         doc3.put("id", 3);
         doc3.put("name", "Tom3");
-        doc3.put("age", 3);
+        doc3.put("age", 0);
         list.add(doc3);
 
         BulkRequest bulkRequest = new BulkRequest();
@@ -377,7 +377,7 @@ public class SearchSortPluginTest3 {
                         .query(mainQuery)
 //                        .addRescorer(rescore)
                         .sort(mySort)
-                        .sort(sort)
+//                        .sort(sort)
                         ;
 
                 SearchRequest searchRequest = new SearchRequest(indexName);
@@ -405,7 +405,6 @@ public class SearchSortPluginTest3 {
                             log.info("{} => {}", entry.getKey(), entry.getValue());
 
                         }
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -72,8 +72,8 @@ public class MySortFieldComparator extends FieldComparator<Integer> {
         private int computeValue(int doc) {
 
 //            return Integer.parseInt(CustomCachePlugin.getCachedValue("my_custom_data"));
-//            return doc * Integer.parseInt(CustomCachePlugin.getCachedValue("my_custom_data"));
-            return doc > 0 ? 10 : 0;
+            return doc * Integer.parseInt(CustomCachePlugin.getCachedValue("my_custom_data"));
+//            return doc > 0 ? 10 : 0;
         }
     }
 }

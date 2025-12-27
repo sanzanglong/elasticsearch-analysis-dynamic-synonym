@@ -21,7 +21,7 @@ import org.elasticsearch.rest.RestController;
 import org.elasticsearch.rest.RestHandler;
 import org.elasticsearch.script.ScriptService;
 import org.elasticsearch.threadpool.ThreadPool;
-import org.elasticsearch.tracing.Tracer;
+//import org.elasticsearch.tracing.Tracer;
 import org.elasticsearch.watcher.ResourceWatcherService;
 import org.elasticsearch.xcontent.NamedXContentRegistry;
 
@@ -54,6 +54,41 @@ public class CustomCachePlugin extends Plugin implements ActionPlugin {
 
     NodeCacheService nodeCacheService = new NodeCacheService(NODE_LOCAL_CACHE);
 
+//    @Override
+//    public Collection<Object> createComponents(Client client,
+//                                               ClusterService clusterService,
+//                                               ThreadPool threadPool,
+//                                               ResourceWatcherService resourceWatcherService,
+//                                               ScriptService scriptService,
+//                                               NamedXContentRegistry xContentRegistry,
+//                                               Environment environment,
+//                                               NodeEnvironment nodeEnvironment,
+//                                               NamedWriteableRegistry namedWriteableRegistry,
+//                                               IndexNameExpressionResolver indexNameExpressionResolver,
+//                                               Supplier<RepositoriesService> repositoriesServiceSupplier,
+//                                               Tracer tracer,
+//                                               AllocationService allocationService) {
+//        // ========== 这里就是在每个节点启动时执行的代码 ==========
+//        String nodeId = nodeEnvironment.nodeId();
+//        String nodeName = Settings.builder().put(environment.settings()).build().get("node.name", "unknown");
+//        String uniqueValue = UUID.randomUUID().toString();
+//
+//        String cacheKey = "my_custom_data";
+//        String cacheValue = String.format("nodeId=%s,nodeName=%s,uuid=%s,startedAt=%s",
+//                nodeId, nodeName, uniqueValue, System.currentTimeMillis());
+//
+//        NODE_LOCAL_CACHE.put(cacheKey, "2");
+//
+//        System.out.println(">>> CustomCachePlugin initialized on node " + nodeId +
+//                ", cached value: " + cacheValue);
+//
+//        // 如果你想注入成 ES 的 Component（可被注入），可以返回一个服务对象
+//        return Collections.singletonList(nodeCacheService);
+////        return Collections.emptyList();
+//    }
+
+
+
     @Override
     public Collection<Object> createComponents(Client client,
                                                ClusterService clusterService,
@@ -65,9 +100,7 @@ public class CustomCachePlugin extends Plugin implements ActionPlugin {
                                                NodeEnvironment nodeEnvironment,
                                                NamedWriteableRegistry namedWriteableRegistry,
                                                IndexNameExpressionResolver indexNameExpressionResolver,
-                                               Supplier<RepositoriesService> repositoriesServiceSupplier,
-                                               Tracer tracer,
-                                               AllocationService allocationService) {
+                                               Supplier<RepositoriesService> repositoriesServiceSupplier) {
         // ========== 这里就是在每个节点启动时执行的代码 ==========
         String nodeId = nodeEnvironment.nodeId();
         String nodeName = Settings.builder().put(environment.settings()).build().get("node.name", "unknown");
@@ -84,9 +117,8 @@ public class CustomCachePlugin extends Plugin implements ActionPlugin {
 
         // 如果你想注入成 ES 的 Component（可被注入），可以返回一个服务对象
         return Collections.singletonList(nodeCacheService);
-//        return Collections.emptyList();
+    //        return Collections.emptyList();
     }
-
 
     // ---------- 可选：提供一个 REST 接口来查看缓存内容 ----------
 
